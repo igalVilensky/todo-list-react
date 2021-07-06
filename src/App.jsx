@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { AiFillDelete, AiFillEdit, AiOutlineCheck } from "react-icons/ai";
 
 import "./app.scss";
 
@@ -7,6 +8,12 @@ function App() {
   const [todo, setTodo] = useState("");
   const [todoEdit, setTodoEdit] = useState(null);
   const [textEdit, setTextEdit] = useState("");
+
+  /* useEffect(() => {
+    if (todo === "") {
+      alert("Please enter some text");
+    }
+  }, [setTodo]); */
 
   useEffect(() => {
     const temp = localStorage.getItem("todos");
@@ -24,6 +31,8 @@ function App() {
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    /* console.log(e.target.value); */
 
     const newTodo = {
       id: new Date().getTime(),
@@ -66,7 +75,9 @@ function App() {
   return (
     <div className="App">
       <div className="app-container">
-        <h1>Todo App</h1>
+        <div className="heading-wrapper">
+          <h1>Todo App</h1>
+        </div>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -74,12 +85,20 @@ function App() {
             value={todo}
             placeholder="Add your new todo"
           />
-          <button type="submit">+</button>
+          <button
+            /*  onClick={
+              setTodo === "" ? alert("hi") : alert("Please enter something")
+            } */
+            type="submit"
+          >
+            +
+          </button>
         </form>
         {todos.map((todo) => (
           <div key={todo.id} className="todos-container">
             {todoEdit === todo.id ? (
               <input
+                className="edit-box"
                 type="text"
                 onChange={(e) => setTextEdit(e.target.value)}
                 value={textEdit}
@@ -88,8 +107,13 @@ function App() {
               <div className="todo-text">{todo.text}</div>
             )}
 
-            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+            <button className="del-btn" onClick={() => deleteTodo(todo.id)}>
+              <AiFillDelete />
+            </button>
+            <label htmlFor="done"></label>
             <input
+              name="done"
+              id="done"
               type="checkbox"
               onChange={() => toggleComplete(todo.id)}
               checked={todo.completed}
@@ -99,11 +123,11 @@ function App() {
                 className="submit-edit-btn"
                 onClick={() => editTodo(todo.id)}
               >
-                Submit Edit
+                <AiOutlineCheck />
               </button>
             ) : (
               <button className="edit-btn" onClick={() => setTodoEdit(todo.id)}>
-                Edit Todo
+                <AiFillEdit />
               </button>
             )}
           </div>
