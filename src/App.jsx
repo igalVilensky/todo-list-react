@@ -95,14 +95,7 @@ function App() {
             placeholder="Add your new todo"
           />
 
-          <button
-            /* onClick={() => {
-              setTodo === "" ? alert("hi") : alert("Please enter something");
-            }} */
-            type="submit"
-          >
-            +
-          </button>
+          <button type="submit">+</button>
         </form>
         {todos.map((todo) => (
           <div key={todo.id} className="todos-container">
@@ -114,13 +107,13 @@ function App() {
                 value={textEdit}
               ></input>
             ) : (
-              <div className="todo-text">{todo.text}</div>
+              <div className="todo-text">{/* {todo.text} */}</div>
             )}
 
             <button className="del-btn" onClick={() => deleteTodo(todo.id)}>
               <AiFillDelete />
             </button>
-            <label htmlFor="done"></label>
+
             <input
               name="done"
               id="done"
@@ -128,6 +121,9 @@ function App() {
               onChange={() => toggleComplete(todo.id)}
               checked={todo.completed}
             />
+            <label htmlFor="done" className="line">
+              {todo.text}
+            </label>
             {todoEdit === todo.id ? (
               <button
                 className="submit-edit-btn"
