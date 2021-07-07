@@ -8,6 +8,7 @@ function App() {
   const [todo, setTodo] = useState("");
   const [todoEdit, setTodoEdit] = useState(null);
   const [textEdit, setTextEdit] = useState("");
+  /*   const [alert, setAlert] = useState(false); */
 
   /* useEffect(() => {
     if (todo === "") {
@@ -32,15 +33,23 @@ function App() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    /* console.log(e.target.value); */
-
     const newTodo = {
       id: new Date().getTime(),
       text: todo,
       completed: false,
     };
+    if (todo === "") {
+      alert("Please enter some text");
+      /* const alertmsg = "Please enter some text";
+      return (
+        <div id="please">
+          <h2>{alertmsg}</h2>
+        </div>
+      ); */
+    } else {
+      setTodos([...todos].concat(newTodo));
+    }
 
-    setTodos([...todos].concat(newTodo));
     setTodo("");
   }
 
@@ -85,10 +94,11 @@ function App() {
             value={todo}
             placeholder="Add your new todo"
           />
+
           <button
-            /*  onClick={
-              setTodo === "" ? alert("hi") : alert("Please enter something")
-            } */
+            /* onClick={() => {
+              setTodo === "" ? alert("hi") : alert("Please enter something");
+            }} */
             type="submit"
           >
             +
